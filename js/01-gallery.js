@@ -33,7 +33,7 @@ function onImageClick(event) {
   }
 
   const instance = basicLightbox.create(
-    `<img src="${event.target.dataset.source}">`
+    `<img src="${event.target.dataset.source}" width="800" height="600">`
   );
   instance.show();
 
