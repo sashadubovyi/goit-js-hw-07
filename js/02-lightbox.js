@@ -15,7 +15,7 @@ function createGallery(images) {
                 <img class="gallery__image" src="${image.preview}" alt="${image.description}" title="${image.description}" />
             </a>
         </li>
-    `
+        `
     )
     .join("");
 }
