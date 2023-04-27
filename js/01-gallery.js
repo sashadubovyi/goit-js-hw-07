@@ -1,10 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 
 const ulGallery = document.querySelector(".gallery");
-const addGallaryMarkup = createGallery(galleryItems);
-
-ulGallery.innerHTML = addGallaryMarkup;
-ulGallery.addEventListener("click", onImageClick);
 
 function createGallery(images) {
   return images
@@ -25,6 +21,12 @@ function createGallery(images) {
     )
     .join("");
 }
+
+ulGallery.innerHTML = createGallery(galleryItems);
+ulGallery.addEventListener("click", onImageClick);
+
+let instance = {};
+
 function onImageClick(event) {
   event.preventDefault();
 
@@ -32,14 +34,23 @@ function onImageClick(event) {
     return;
   }
 
-  const instance = basicLightbox.create(
-    `<img src="${event.target.dataset.source}" width="800" height="600">`
+  instance = basicLightbox.create(
+    `<img src="${event.target.dataset.source}" width="800" height="600">`,
+    {
+      onShow: (instance) => { 
+        document.addEventListener('keydown', closeOnEscape);
+
+      },
+      onClose: (instance) => { 
+        document.removeEventListener('keydown', closeOnEscape);
+      },
+    }
   );
   instance.show();
+}
 
-  ulGallery.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") {
-      instance.close();
-    }
-  });
+function closeOnEscape(event) {
+  if (event.code === 'Escape') {
+    instance.close();
+  }
 }

@@ -21,3 +21,4 @@ function createGallery(images) {
 }
 
 var lightbox = new SimpleLightbox(".gallery a", { captionDelay: 250 });
+
